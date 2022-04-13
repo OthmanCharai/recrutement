@@ -27,7 +27,7 @@
                                                 <tr class="mb30">
                                                     <th scope="row">
                                                         <ul>
-                                                            <li class="list-inline-item"><a href="{{ $cv->path }}"><span class="flaticon-doc font"></span></a></li>
+                                                            <li class="list-inline-item"><a target="_blanc" href="{{ $cv->path }}"><span class="flaticon-doc font"></span></a></li>
                                                             <li class="list-inline-item cv_sbtitle"><a href="#">{{ $cv->title }}</a></li>
                                                         </ul>
                                                     </th>
@@ -36,7 +36,7 @@
                                                     <td></td>
                                                     <td>
                                                         <ul class="view_edit_delete_list">
-                                                            <li class="list-inline-item"><a href="{{ $cv->path }}" data-toggle="tooltip" data-placement="top" title="Pokaż"><span class="flaticon-eye"></span></a></li>
+                                                            <li class="list-inline-item"><a target="_blanc" href="{{ $cv->path }}" data-toggle="tooltip" data-placement="top" title="Pokaż"><span class="flaticon-eye"></span></a></li>
                                                             <li class="list-inline-item"><form method="POST" action="{{ route('cvs.destroy',$cv->id) }}">@csrf @method('DELETE')<button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Usuń"><span class="flaticon-rubbish-bin"></span></button></form></li>
                                                         </ul>
                                                     </td>
@@ -60,7 +60,7 @@
 									</label>
                                     <button style="margin-left:100px" class=" upload">Zapisz zmiany</button>
 								</form>
-							  	<small class="form-text text-muted">Suitable files are .doc,.docx,.pdf.</small>
+							  	<small class="form-text text-muted">Suitable files is pdf.</small>
 							</div>
 						</div>
 					</div>

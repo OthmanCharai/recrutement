@@ -14,6 +14,7 @@
 
 <!-- Responsive stylesheet -->
 <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+
 <!-- Title -->
 <title>CareerUp - The Most Popular Job Board HTML Template</title>
 <!-- Favicon -->
@@ -39,19 +40,19 @@
                             <span class="icon-bar"></span>
                         </button>
                     </div>
-                    <a href={{ route('home') }}" class="navbar_brand float-left dn-smd">
+                    <a href={{ route('home.pages') }}" class="navbar_brand float-left dn-smd">
                         <img class="img-fluid mt10" src="{{ asset('images/header-logo.png') }}" alt="header-logo.png">
                     </a>
                     <!-- Responsive Menu Structure-->
                     <!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
                     <ul id="respMenu" class="ace-responsive-menu" data-menu-style="horizontal">
                         <li>
-                            <a href="{{ route('home') }}"><span class="title">Home</span></a>
+                            <a href="{{ route('home.pages') }}"><span class="title">Home</span></a>
                             <!-- Level Two-->
 
                         </li>
                         <li>
-                            <a href="#"><span class="title">Find A Job</span></a>
+                            <a href="{{ route('job.index') }}"><span class="title">Find A Job</span></a>
                             <!-- Level Two-->
 
                         </li>
@@ -63,17 +64,13 @@
                         <li>
                             <a href="{{ route('candidate.index') }}"><span class="title">Candidates</span></a>
                         </li>
-                        <li>
-                            <a href="#"><span class="title">Pages</span></a>
-
-                        </li>
                     </ul>
                     <ul class="sign_up_btn pull-right dn-smd mt10">
                         @auth
                             @if(Auth::user()->user_type=="candidate")
                             <li><a href="{{ route('candidate.dashboard') }}" class="btn btn-md" >Dashboard</a></li>
                             @else
-                            <li><a href="{{ route('employe.dashboard') }}" class="btn btn-md" >Dashboard</a></li>
+                            <li><a href="{{ route('employes.dashboard') }}" class="btn btn-md" >Dashboard</a></li>
 
                             @endif
                         @endauth
@@ -136,6 +133,8 @@
 <script type="text/javascript" src="{{ asset('js/simplebar.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/parallax.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/scrollto.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/chart.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/chart.custome.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery-scrolltofixed-min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery.counterup.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/wow.min.js') }}"></script>

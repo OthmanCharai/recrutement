@@ -53,6 +53,6 @@ class User extends Authenticatable
      *  rlt with employe and
      */
     public function employe(){
-        return $this->hasOne(Employee::class);
+        return $this->hasOne(Employe::class);
     }
 }

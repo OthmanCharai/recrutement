@@ -12,9 +12,9 @@ class Employe extends Model
      *  fillable
      */
     protected $fillable=[
-        'first_name',
-        'last_name',
-        'driver_licence',
+        'name',
+        'email',
+        'category',
         'birthday',
         'Country',
         'city',
@@ -22,6 +22,7 @@ class Employe extends Model
         'description',
         'address',
         'image',
+        'user_id'
     ];
     /**
      *  rlt with users
@@ -34,6 +35,6 @@ class Employe extends Model
      *  rlt with jobs
      */
     public function jobs(){
-        return $this->hasMany(Jobs::class);
+        return $this->hasMany(Job::class);
     }
 }

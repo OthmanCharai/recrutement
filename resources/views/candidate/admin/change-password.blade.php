@@ -7,21 +7,27 @@
         <div class="row">
             <x-candidate id="{{ $candidate->id }}" name="{{ $candidate->first_name }}" address="active" city="{{ $candidate->city }}" country="{{ $candidate->country }}" image="{{ $candidate->image }}"></x-candidate>
             <div class="col-lg-6 col-xl-6">
+                @if(session()->has("status"))
+                            <div class="col col-md text-center">
+                                <div class="aler alert-success">
+                                    <p>{{ session()->get('status') }}</p>
+                                </div>
+                            </div>
+                @endif
                 <div class="password_change_form">
                     <h4>Zmień hasło</h4>
-                    <form>
+                    <form action="{{ route('change.password') }}" method="POST">
+                        @csrf
+                       
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Stare hasło</label>
-                            <input name="old_password" type="password" class="form-control" id="exampleInputPassword1" placeholder="*******">
+                            <label for="exampleInputPassword1">Email</label>
+                            <input name="email" type="email" class="form-control" id="" placeholder="Email">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword2">Nowe hasło</label>
-                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="*******">
+                            <input name="password" type="password" class="form-control" id="exampleInputPassword2" placeholder="*******">
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword3">Potwierdź hasło</label>
-                            <input type="password" class="form-control" id="exampleInputPassword3" placeholder="*******">
-                        </div>
+
                         <button type="submit" class="btn btn-thm">Save Changes</button>
                     </form>
                 </div>

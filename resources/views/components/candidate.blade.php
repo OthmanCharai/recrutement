@@ -17,12 +17,8 @@
 			<li class="{{ request()->is('favorite') ? 'active' : '' }}">
                 <a  href="{{ route('candidate.favorite') }}"><span class="flaticon-favorites"></span> Favourite Jobs</a>
             </li>
-
-            <li class="{{ request()->is('candidate/change_password') ? 'active' : '' }}"><a href="{{ route('candidate.change_password') }}"><span class="flaticon-locked"></span> Change Password</a></li>
+            <li class="{{ request()->is('change_password') ? 'active' : '' }}"><a href="{{ route('candidate.change_password') }}"><span class="flaticon-locked"></span> Settings</a></li>
             <li class="{{ request()->is('admin/candidate/1') ? 'active' : '' }}">
-
-
-
                 <a  href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                               document.getElementById('logout-form').submit();">
@@ -32,8 +28,7 @@
                     </form>
 
                 </a>
-                </li>
-            <li class="{{ request()->is('admin/candidate/1') ? 'active' : '' }}"><a href="#"><span class="flaticon-rubbish-bin"></span> Delete Profile</a></li>
+            </li>
         </ul>
     </div>
 </div>

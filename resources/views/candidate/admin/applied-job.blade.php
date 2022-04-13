@@ -9,6 +9,13 @@
                 <x-candidate id="{{ $candidate->id }}" name="{{ $candidate->first_name }}" address="active" city="{{ $candidate->city }}" country="{{ $candidate->country }}" image="{{ $candidate->image }}"></x-candidate>
 				<div class="col-lg-8 col-xl-9">
 					<div class="row">
+                        @if(session()->has("status"))
+                        <div class="col col-md text-center">
+                            <div class="aler alert-success">
+                                <p>{{ session()->get('status') }}</p>
+                            </div>
+                        </div>
+                        @endif
 						<div class="col-lg-12">
 							<h4 class="fz18 mb30">Dotyczy pracy</h4>
 						</div>
@@ -22,7 +29,7 @@
                                         <div class="thumb fn-smd">
                                             <img class="img-fluid" style="height:122px;width:120px" src="{{ $job->image }}" alt="1.jpg">
                                         </div>
-                                        <h4>{{ $job->address }}</h4>
+                                        <h4>{{ $job->title }}</h4>
 
                                         <p>{{ $carbon::parse($job->created_at) }} by <a class="text-thm" href="#">{{ $job->employe->first_name }}</a></p>
                                         <ul class="featurej_post">
@@ -31,8 +38,8 @@
                                         </ul>
                                     </div>
                                     <ul class="view_edit_delete_list float-right">
-                                        <li class="list-inline-item"><a href="#" data-toggle="tooltip" data-placement="top" title="Edit"><span class="flaticon-edit"></span></a></li>
-                                        <li class="list-inline-item"><a href="#" data-toggle="tooltip" data-placement="top" title="Delete"><span class="flaticon-rubbish-bin"></span></a></li>
+                                        <li class="list-inline-item"><a href="{{ route('job.show',$job->id) }}" data-toggle="tooltip" data-placement="top" title="Oglądaj"><span class="flaticon-eye"></span></a></li>
+                                        <li class="list-inline-item"><form method="POST" action="{{ route('candidate.remove.job',$job->id) }}">@csrf @method('DELETE')<button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Usuń"><span class="flaticon-rubbish-bin"></span></button></form></li>
                                     </ul>
                                 </div>
                             </div>

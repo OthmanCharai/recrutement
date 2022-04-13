@@ -13,7 +13,7 @@ class StoreJobRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,18 @@ class StoreJobRequest extends FormRequest
     {
         return [
             //
+            'title'=>'required',
+            'description'=>'required',
+            'type'=>'required',
+            'salary'=>'required',
+            "experience"=>'required',
+            'gender'=>'required',
+            'country'=>'required',
+            'city'=>'required',
+            'address'=>'required',
+            'image'=>'required',
+            'deadline_date'=>'required',
+            'driver_licence'=>'required',
         ];
     }
 }

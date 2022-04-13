@@ -22,6 +22,7 @@ class Job extends Model
         'status',
         'deadline_date',
         'licence_driver',
+        'employe_id'
     ];
     /**
      *  rlt with candidate

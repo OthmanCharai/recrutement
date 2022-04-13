@@ -1,5 +1,46 @@
 @extends('layouts.layout')
 @section('content')
+<!-- Modal -->
+<div class="sign_up_modal modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="col-lg-12 col-xl-12">
+                <div class="candidate_resume_uploader">
+                    <p class="form_title">Załaduj CV</p>
+                    <form class="" method="post" action="{{ route('candidate.apply.job') }}" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $job->id }}">
+                        @if(count($cvs)>0)
+
+                            <div class="form-group">
+
+                            <select class="my_profile_select_box form-control" name="cv" id="">
+                                <option value="">Wybierz cv z listy cv</option>
+                                @foreach ($cvs as $cv )
+                                    <option value="{{ $cv->path }}">{{ $cv->title }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @endif
+                        <small class="form-text text-muted">Lub dodaj nowy</small>
+                        <div class="form-group d-flex">
+                            <label style="width:100%" class="upload">
+                                <input name="cv" type="file" />
+                                <p ><span class="flaticon-download"></span>CV</p>
+                            </label>
+                        </div>
+                        <button style="width:100%" class="upload btn-sm">Dodaj</button>
+                    </form>
+                      <small class="form-text text-muted">Suitable files are .doc,.docx,.pdf.</small>
+                </div>
+            </div>
+      </div>
+    </div>
+</div>
+<!--modal-->
   <!-- Candidate Personal Info-->
   <section class="bgc-fa pt80 mt80 mbt45">
       <div class="container">
@@ -15,7 +56,7 @@
               <div class="col-lg-8 col-xl-9">
                   <div class="candidate_personal_info style2">
                       <div class="thumb text-center">
-                          <img class="img-fluid rounded" src="{{ asset('images/partners/cl1.jpg') }}" alt="cl1.jpg"><br><br>
+                          <img class="img-fluid rounded" style="height:150px;width:195px" src="{{ $job->image }}" alt="cl1.jpg"><br><br>
                           <a class="mt25" href="">View all jobs <span class="flaticon-right-arrow pl10"></span></a>
                       </div>
                       <div class="details">
@@ -31,8 +72,8 @@
               </div>
               <div class="col-lg-4 col-xl-3">
                   <div class="candidate_personal_overview style2">
-                      <button class="btn btn-block btn-thm mb15">Apply Now <span class="flaticon-right-arrow pl10"></span></button>
-                      <button class="btn btn-block btn-gray"><span class="flaticon-favorites pr10"></span> Shortlist</button>
+                      <button data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-block btn-thm mb15"> Apply Now <span class="flaticon-right-arrow pl10"></span></button>
+                      <a href="{{ route('candidate.add.favorite',$job->id) }}" class="btn btn-lg btn-block btn-gray"><span class="flaticon-favorites pr10"></span> Shortlist</a>
                   </div>
               </div>
           </div>
@@ -49,9 +90,7 @@
                           <div class="candidate_about_info style2">
                               <h4 class="fz20 mb30">Opis stanowiska pracy</h4>
                               <p class="mb30">{{ $job->description }}</p>
-
-                              <button class="btn btn-lg btn-thm mb15">Apply Now <span class="flaticon-right-arrow pl10"></span></button>
-                              <button class="btn btn-lg btn-gray float-right"><span class="flaticon-mail pr10"></span> Get Job Alerts</button>
+                              <button data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-lg btn-thm mb15">Apply Now <span class="flaticon-right-arrow pl10"></span></button>
                           </div>
                       </div>
 
@@ -112,10 +151,6 @@
                           <li><span class="flaticon-24-hours-support text-thm2"></span> <span>{{ $day }}</span> <span>Day</h5></li>
                           <li><span class="flaticon-businessman-paper-of-the-application-for-a-job text-thm2"></span> <span>{{ count($job->candidates) }}</span> <span>Application</h5></li>
                       </ul>
-                  </div>
-                  <div class="map_sidebar_widget">
-                      <h4 class="fz20 mb30">Lokalizacja pracy</h4>
-                      <div class="h300" id="map-canvas"></div>
                   </div>
               </div>
           </div>

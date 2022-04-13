@@ -9,6 +9,8 @@ use App\Models\Country;
 use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class CandidateController extends Controller
@@ -164,12 +166,20 @@ class CandidateController extends Controller
         ]);
     }
 
-    public function getCandidateCv($id){
+    public function getCandidateCv($id,$job=0){
+        $job=Job::find($job);
         $candidate=Candidate::find($id);
+        if($job){
+            $cv=DB::table('candidate_job')->where('candidate_id',$candidate->id)->where('job_id',$job->id)->get();
+        }else{
+            $cv=null;
+        }
+
         $age=$candidate->birthday;
         return view('candidate.show',[
             'candidate'=>$candidate,
-            "age"=>$age
+            "age"=>$age,
+            'cv'=>$cv
         ]);
     }
 
@@ -235,8 +245,8 @@ class CandidateController extends Controller
         }
     }
     public function changePassword(){
-        $id=1;
-        $candidate=Candidate::find($id);
+
+        $candidate=Auth::user()->candidate;
         if($candidate){
             return view('candidate.admin.change-password',[
                 'candidate'=>$candidate
@@ -280,7 +290,8 @@ class CandidateController extends Controller
     public function deleteFavorite(Request $request,$id){
         $candidate=Auth::user()->candidate;
         $job=Job::find($id);
-        $job->liked()->detach($candidate->id);
+        //$job->liked()->detach($candidate);
+        $candidate->favorites()->detach($job);
         $request->session()->flash('status','zadanie usunięte z ulubionych z powodzeniem');
         return redirect()->route('candidate.favorite');
     }
@@ -305,9 +316,54 @@ class CandidateController extends Controller
     public function addToFavorite(Request $request,$id){
         $candidate=Auth::user()->candidate;
         $job=Job::find($id);
-        $job->liked()->syncWithoutDetaching($candidate->id);
+        $candidate->favorites()->syncWithoutDetaching($job);
+        //$job->liked()->syncWithoutDetaching([$candidate->$id]);
         $request->session()->flash('status','zadanie dodane do ulubionych');
         return redirect()->route('job.show',$job->id);
+    }
+
+    public function applyJob(Request $request){
+        $candidate=Auth::user()->candidate;
+
+        $request->validate([
+            'cv'=>'required '
+        ]);
+
+        if($request->hasFile('cv')){
+            $cv=$request->file('cv');
+            $cv=Storage::disk('public')->putFile('cvs',$cv);
+            $url=Storage::url($cv);
+        }else{
+            $url=$request->cv;
+        }
+
+        $job=Job::find($request->id);
+        $candidate->jobs()->syncWithoutDetaching([
+            $job->id=>['cv'=>$url]
+        ]);
+        $request->session()->flash('status','zastosowanie z sukcesem');
+        return redirect()->route('job.show',$job->id);
+    }
+
+    public function removeJob(Request $request,$id){
+        $candidate=Auth::user()->candidate;
+        $job=Job::find($id);
+        $candidate->jobs()->detach($job);
+        $request->session()->flash('status','aplikacja została usunięta z powodzeniem');
+        return redirect()->route('candidate.applied_jobs');
+
+    }
+
+    public function updatePassword(Request $request){
+        $request->validate([
+            'email'=>'required',
+            'password'=>'required'
+        ]);
+        $user=Auth::user();
+        $user->email=$request->email;
+        $user->password=Hash::make($request->password);
+        $request->session()->flash('status','informacje zostały zaktualizowane z powodzeniem');
+        return redirect()->route('candidate.change_password');
     }
 
 

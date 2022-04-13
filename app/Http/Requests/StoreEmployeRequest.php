@@ -13,7 +13,7 @@ class StoreEmployeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,17 @@ class StoreEmployeRequest extends FormRequest
     {
         return [
             //
+            'name'=>'required',
+            'email'=>'required',
+            'category'=>'required',
+            'birthday'=>'required',
+            'country'=>'required',
+            'city'=>'required',
+            'phone'=>'required',
+            'description'=>'required',
+            'address'=>'required',
+            'image'=>'required | mimes:jpg,png,jpeg',
+
         ];
     }
 }

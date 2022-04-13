@@ -5,7 +5,7 @@ function createConfig() {
         data: {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [{
-                label: 'Dataset',
+                label: 'Application',
                 borderColor: window.chartColors.red,
                 backgroundColor: window.chartColors.red,
                 data: [10, 30, 46, 2, 8, 50, 0],

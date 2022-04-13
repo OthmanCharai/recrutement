@@ -1,11 +1,11 @@
 /* ----- Employee Dashboard Chart Js For Applications Statistics ----- */
 function createConfig() {
     return {
-        type: 'line',
+        type: 'bar',
         data: {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [{
-                label: 'Dataset',
+                label: 'Application',
                 borderColor: window.chartColors.red,
                 backgroundColor: window.chartColors.red,
                 data: [10, 30, 46, 2, 8, 50, 0],
@@ -13,7 +13,7 @@ function createConfig() {
             }]
         },
         options: {
-            responsive: true,
+            js/chart.custome.js responsive: true,
             title: {
                 display: true,
                 text: 'Sample tooltip with border'

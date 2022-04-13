@@ -18,9 +18,9 @@ class EmployeFactory extends Factory
     {
         return [
             //
-            'first_name'=>$this->faker->name(),
-            'last_name'=>$this->faker->name(),
-            'driver_licence'=>$this->faker->sentence(4),
+            'name'=>$this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'category'=>$this->faker->sentence(1),
             'birthday'=>now(),
             'Country'=>$this->faker->country(),
             'city'=>$this->faker->city(),

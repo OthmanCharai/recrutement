@@ -8,7 +8,7 @@
 				<div class="col-lg-12">
 					<h4 class="breadcrumb_title float-left">Login/Register</h4>
 					<ol class="breadcrumb float-right">
-					    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+					    <li class="breadcrumb-item"><a href="{{ route('home.pages') }}">Home</a></li>
 					    <li class="breadcrumb-item active" aria-current="page">Login/Register</li>
 					</ol>
 				</div>

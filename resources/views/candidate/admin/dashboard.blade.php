@@ -36,10 +36,13 @@
                         </div>
                     </div>
 
-                    <div class="col-xl-8">
+                <div class="col-xl-12">
                         <div class="application_statics">
                             <h4>Statistics</h4>
-                            <div class="c_container"></div>
+                            <div class="c_container">
+
+
+                            </div>
                         </div>
                     </div>
                     <div class="col-xl-11">
@@ -52,7 +55,7 @@
                                 <ul class="rj_post_address float-right">
                                     <li class="list-inline-item"><a href="#"><span class="flaticon-location-pin"></span></a></li>
                                     <li class="list-inline-item"><a href="#">{{ $applied_job->city }}, {{ $applied_job->country }}</a></li>
-                                    <li class="list-inline-item"><a href="#" data-toggle="tooltip" data-placement="top" title="Edytuj"><span class="flaticon-edit"></span></a></li>
+                                    <li class="list-inline-item"><a href="{{ route('job.show',$applied_job->id) }}" data-toggle="tooltip" data-placement="top" title="Show"><span class="flaticon-eye"></span></a></li>
                                     <li class="list-inline-item"><form method="POST" action="{{ route('delete.apply',$applied_job->id) }}">@csrf @method('DELETE')<button class="btn btn-sm"  data-toggle="tooltip" data-placement="top" title="Usuń"><span class="flaticon-rubbish-bin"></span></button></from></li>
                                 </ul>
                             </div>

@@ -8,8 +8,10 @@
 
 				<div class="col-sm-12 col-lg-8 col-xl-9">
 					<div class="my_profile_form_area employer_profile">
-                        <form action="{{ route('job.store') }}" method="post" enctype="multipart/form-data">
+                      
+                        <form action="{{ route('job.update',$job->id) }}" method="post" enctype="multipart/form-data">
 						@csrf
+                        @method('PUT')
                             <div class="row">
                                 @if(session()->has("status"))
                             <div class="col col-md text-center">
@@ -24,7 +26,7 @@
                             <div class="col-lg-12">
                                 <div class="avatar-upload mb30">
                                     <div class="avatar-edit">
-                                        <input name="image" class="btn btn-thm" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                                        <input value="{{ $job->image }}" name="image" class="btn btn-thm" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
                                         <label for="imageUpload"></label>
                                     </div>
                                     <div class="avatar-preview">
@@ -38,7 +40,7 @@
 							<div class="col-lg-12">
 								<div class="my_profile_input form-group">
 							    	<label for="formGroupExampleInput2">Nazwa stanowiska pracy</label>
-							    	<input name="title" type="text" class="form-control" id="formGroupExampleInput2" placeholder="UX/UI Desginer">
+							    	<input name="title" type="text" class="form-control" id="formGroupExampleInput2" value="{{ $job->title }}">
 								</div>
 							</div>
 							<div class="col-lg-12">
@@ -53,19 +55,19 @@
 							<div class="col-md-6 col-lg-12">
 								<div class="my_profile_input form-group">
 							    	<label for="formGroupExampleInputDate">Data zakończenia przyjmowania wniosków</label>
-							    	<input name="deadline_date" type="date" class="form-control" id="formGroupExampleInputDate" placeholder="22/05/2010">
+							    	<input name="deadline_date" type="date" class="form-control" id="formGroupExampleInputDate" value="{{ $job->deadline_date }}">
 								</div>
 							</div>
 							<div class="col-md-6 col-lg-6">
 								<div class="my_profile_input form-group">
 							    	<label for="exampleFormControlInput1">Rodzaj pracy</label>
-							    	<input name="type" type="text" class="form-control" id="exampleFormControlInput1">
+							    	<input name="type" type="text" class="form-control" id="exampleFormControlInput1" value="{{ $job->type }}">
 								</div>
 							</div>
 							<div class="col-md-6 col-lg-6">
 								<div class="my_profile_input form-group">
 							    	<label for="formGroupExampleInput1">wynagrodzenie</label>
-							    	<input name="salary" type="text" class="form-control" id="formGroupExampleInput1">
+							    	<input name="salary" type="text" class="form-control" id="formGroupExampleInput1" value="{{ $job->salary }}">
 								</div>
 								</div>
 
@@ -75,10 +77,10 @@
 								<div class="my_profile_select_box form-group">
 							    	<label for="formGroupExampleInput1">Doświadczenie</label><br>
 							    	<select name="experience" class="selectpicker">
-										<option>1Year to 2Year</option>
-										<option>2Year to 3Year</option>
-										<option>3Year to 4Year</option>
-										<option>4Year to 5Year</option>
+										<option @if($job->experience=="1Year to 2Year") selected @endif>1Year to 2Year</option>
+										<option @if($job->experience=="2Year to 3Year") selected @endif>2Year to 3Year</option>
+										<option @if($job->experience=="3Year to 4Year") selected @endif>3Year to 4Year</option>
+										<option @if($job->experience=="4Year to 5Year") selected @endif>4Year to 5Year</option>
 									</select>
 								</div>
 							</div>
@@ -86,9 +88,9 @@
 								<div class="my_profile_select_box form-group">
 							    	<label for="formGroupExampleInput1">Płeć</label><br>
 							    	<select name="gender" class="selectpicker">
-										<option>Male</option>
-										<option>Female</option>
-										<option>None</option>
+										<option value="Male" @if($job->gender=="Male") selected @endif >Male</option>
+										<option @if($job->gender=="Female") selected @endif value="Female">Female</option>
+										<option @if($job->gender=="None") selected @endif>None</option>
 									</select>
 								</div>
 							</div>
@@ -96,10 +98,10 @@
                                 <div class="my_profile_select_box form-group">
                                     <label for="exampleFormControlInput2">Prawo Jazdy</label><br>
                                     <select name="driver_licence" class="selectpicker" multiple data-actions-box="true">
-                                                <option value="A">A</option>
-                                                <option value="B">B</option>
-                                                <option value="C">C</option>
-                                                <option value="D">D</option>
+                                                <option @if($job->licence_driver=="A") selected @endif value="A">A</option>
+                                                <option @if($job->licence_driver=="B") selected @endif value="B">B</option>
+                                                <option @if($job->licence_driver=="C") selected @endif value="C">C</option>
+                                                <option @if($job->licence_driver=="D") selected @endif value="D">D</option>
                                     </select>
                                 </div>
                             </div>
@@ -112,7 +114,7 @@
                                     <label for="exampleFormControlInput9">Kraj</label><br>
                                         <select name="country" class="selectpicker">
                                             @foreach ($countries as $country )
-                                                <option  @if($employe->country==$country) selected @endif  valeu="{{ $country->name }}">{{ $country->name }}</option>
+                                                <option  @if($job->country==$country) selected @endif  valeu="{{ $country->name }}">{{ $country->name }}</option>
 
                                         @endforeach
 
@@ -122,14 +124,14 @@
                             <div class="col-md-6 col-lg-6">
                                 <div class="my_profile_input form-group ">
                                     <label for="exampleFormControlInput9">Miasto</label><br>
-                                    <input name="city" type="text" class="form-control" id="formGroupExampleInput1"  value=" {{ $employe->city }}">
+                                    <input name="city" type="text" class="form-control" id="formGroupExampleInput1"  value=" {{ $job->city }}">
                                 </div>
                             </div>
 							<div class="col-lg-12">
 								<div class="my_resume_textarea">
 									<div class="form-group">
 									    <label for="exampleFormControlTextarea2">Pełny adres</label>
-									    <textarea name="address" class="form-control" id="exampleFormControlTextarea2" rows="3">London, United Kingdom</textarea>
+									    <textarea name="address" class="form-control" id="exampleFormControlTextarea2" rows="3">{{ $job->address }}</textarea>
 									</div>
 								</div>
 							</div>

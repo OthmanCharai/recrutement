@@ -25,7 +25,8 @@ class StoreCvRequest extends FormRequest
     {
         return [
             //
-            'path'=>'required | mimes:pdf'
+            'path'=>'required | mimes:pdf',
+            'title'=>'required'
         ];
     }
 }

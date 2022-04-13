@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('employes', function (Blueprint $table) {
             $table->id();
-            $table->text('first_name');
-            $table->text('last_name');
-            $table->text('driver_licence');
+            $table->text('name');
+            $table->string('email')->unique();
+            $table->text('category');
             $table->date('birthday');
             $table->text('Country');
             $table->text('city');
