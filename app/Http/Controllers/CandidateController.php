@@ -150,9 +150,13 @@ class CandidateController extends Controller
      * @param  \App\Models\Candidate  $candidate
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Candidate $candidate)
+    public function destroy(Request $request,$candidate)
     {
         //
+        $candidate=Candidate::find($candidate);
+        $candidate->delete();
+        $request->session()->flash('status','kandydaci zostali usunięci z powodzeniem');
+        return redirect()->back();
     }
 
     public function getCandidate(Request $request){

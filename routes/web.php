@@ -3,6 +3,7 @@
 use App\Http\Controllers\CvController;
 use App\Http\Controllers\EmployeController;
 use App\Models\Candidate;
+use App\Models\Comment;
 use App\Models\Job;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,7 @@ Route::get('/',function(){
     return view('pages.home',[
         'jobs'=>Job::orderBy('created_at','DESC')->take(4)->get(),
         'candidates'=>Candidate::all(),
+        'comments'=>Comment::with('candidate')->get(),
     ]);
 })->name('home.pages');
 
@@ -48,6 +50,8 @@ Route::get('/',function(){
         return view('jobs.index');
     });
 
+    Route::post('/search/job',"JobController@search")->name('search.job');
+
     /**
      *  cv route
      */
@@ -57,6 +61,10 @@ Route::get('/',function(){
      *  job route
      */
     Route::resource('job',JobController::class);
+    /**
+     *  comments route
+     */
+    Route::resource('comment', CommentController::class);
 
     /**
      *  EMPLOYE route
@@ -74,6 +82,16 @@ Route::get('/',function(){
         Route::get('candidate/{id}','EmployeController@getCandidateJob')->name('candidates');
         Route::post('find','JobController@findJobByValue')->name('find');
         Route::post('find_date','JobController@findJobByDate')->name('find.date');
+    });
+
+    Route::prefix('admin')->name('admin.')->group(function(){
+        Route::get('dashboard','AdminController@dashboard')->name('dashboard');
+        Route::get('candidates_list','AdminController@candidates')->name('candidates_list');
+        Route::get('employes','AdminController@employes')->name('employes');
+        Route::get('jobs','AdminController@jobs')->name('jobs');
+        Route::delete('jobs/{id}',"AdminController@delete")->name('jobs.delete');
+
+
     });
 
     Route::get('/admin',function(){

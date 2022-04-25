@@ -57,4 +57,8 @@ class Candidate extends Model
     public function favorites(){
         return $this->belongsToMany(Job::class,'favorites','candidate_id','job_id')->withTimestamps();
     }
+
+    public function comments(){
+        return $this->hasMany(Commet::class);
+    }
 }

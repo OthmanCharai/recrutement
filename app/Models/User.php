@@ -55,4 +55,6 @@ class User extends Authenticatable
     public function employe(){
         return $this->hasOne(Employe::class);
     }
+
+    
 }

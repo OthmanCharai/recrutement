@@ -135,9 +135,14 @@ class EmployeController extends Controller
      * @param  \App\Models\Employe  $employe
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Employe $employe)
+    public function destroy(Request $request,$employe)
     {
         //
+        $employe=Employe::find($employe);
+        $employe->delete();
+        $request->session()->flash('status','Zatrudnienie zostało usunięte z powodzeniem');
+        return redirect()->back();
+
     }
 
     // get dashboard

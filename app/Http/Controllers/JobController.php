@@ -180,8 +180,6 @@ class JobController extends Controller
     public function findJobByDate(Request $request){
         $time=now();
         $date=$time->hour-$request->value;
-        dd($date);
-
         $jobs=Job::where('created_at',"<=",'%'.$request->value."%")->paginate(6);
         $total=count(Job::all());
         return view('jobs.index',[
@@ -189,4 +187,15 @@ class JobController extends Controller
             'totale'=>$total
         ]);
     }
+
+    public function search(Request $request){
+        $jobs=Job::where('title',"like","%".$request->title."%")->where('city','like',"%".$request->city."%")->paginate(6);
+        $total=count(Job::all());
+        return view('jobs.index',[
+            'jobs'=>$jobs,
+            'totale'=>$total
+        ]);
+    }
+
+    
 }

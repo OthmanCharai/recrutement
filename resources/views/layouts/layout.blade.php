@@ -16,10 +16,10 @@
 <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
 
 <!-- Title -->
-<title>CareerUp - The Most Popular Job Board HTML Template</title>
+<title>K.G Transport Consulting</title>
 <!-- Favicon -->
-<link href="{{ asset('images/favicon.ico') }}" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
-<link href="{{ asset('images/favicon.ico') }}" sizes="128x128" rel="shortcut icon" />
+<link href="{{ asset('images/k.g2.png') }}" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
+<link href="{{ asset('images/k.g2.png') }}" sizes="128x128" rel="shortcut icon" />
 
 </head>
 <body>
@@ -33,7 +33,7 @@
                 <nav>
                     <!-- Menu Toggle btn-->
                     <div class="menu-toggle">
-                        <img class="nav_logo_img img-fluid" src="{{ asset('images/header-logo.png') }}" alt="header-logo.png">
+                        <img style="width:50px;height:50px" class="nav_logo_img img-fluid" src="{{ asset('images/k.g2.png') }}" alt="header-logo.png">
                         <button type="button" id="menu-btn">
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -41,7 +41,7 @@
                         </button>
                     </div>
                     <a href={{ route('home.pages') }}" class="navbar_brand float-left dn-smd">
-                        <img class="img-fluid mt10" src="{{ asset('images/header-logo.png') }}" alt="header-logo.png">
+                        <img  style="width:100px;height:50px"class="img-fluid mt10" src="{{ asset('images/k.g2.png') }}" alt="header-logo.png">
                     </a>
                     <!-- Responsive Menu Structure-->
                     <!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
@@ -49,29 +49,20 @@
                         <li>
                             <a href="{{ route('home.pages') }}"><span class="title">Home</span></a>
                             <!-- Level Two-->
-
                         </li>
                         <li>
                             <a href="{{ route('job.index') }}"><span class="title">Find A Job</span></a>
                             <!-- Level Two-->
-
-                        </li>
-                        <li>
-                            <a href="#"><span class="title">Employer</span></a>
-                            <!-- Level Two-->
-
-                        </li>
-                        <li>
-                            <a href="{{ route('candidate.index') }}"><span class="title">Candidates</span></a>
                         </li>
                     </ul>
                     <ul class="sign_up_btn pull-right dn-smd mt10">
                         @auth
                             @if(Auth::user()->user_type=="candidate")
                             <li><a href="{{ route('candidate.dashboard') }}" class="btn btn-md" >Dashboard</a></li>
-                            @else
+                            @elseif(Auth::user()->user_type=="employe")
                             <li><a href="{{ route('employes.dashboard') }}" class="btn btn-md" >Dashboard</a></li>
-
+                            @else
+                            <li><a href="{{ route('admin.dashboard') }}" class="btn btn-md" >Dashboard</a></li>
                             @endif
                         @endauth
                         @guest
@@ -97,19 +88,9 @@
 
             </li>
             <li><span>Find A Job</span>
-                <ul>
-                    <li><span>Job List</span>
-
-                    </li>
-                    <li><span>Job Single</span>
-
-                    </li>
-                </ul>
-            </li>
-            <li><span>Employer</span>
 
             </li>
-            <li><span>Candidates</span>
+
 
             </li>
             <li><a class="text-thm" href="{{ route('login') }}">Login/Register</a></li>

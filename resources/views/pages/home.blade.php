@@ -15,17 +15,18 @@
             </div>
             <div class="col-lg-12">
                 <div class="home-job-search-box mt20 mb20">
-                    <form class="form-inline">
+                    <form class="form-inline" action="{{ route('search.job') }}" method="post">
+                        @csrf
                         <div class="search_option_one">
                             <div class="form-group">
                                 <label for="exampleInputName"><span class="flaticon-search"></span></label>
-                                <input type="text" class="form-control h70" id="exampleInputName" placeholder="Job Title or Keywords">
+                                <input type="text" name="title" class="form-control h70" id="exampleInputName" placeholder="Job Title or Keywords">
                             </div>
                         </div>
                         <div class="search_option_two">
                             <div class="form-group">
                                 <label for="exampleInputEmail"><span class="flaticon-location-pin"></span></label>
-                                <input type="text" class="form-control h70" id="exampleInputEmail" placeholder="Location">
+                                <input type="text" name="city" class="form-control h70" id="exampleInputEmail" placeholder="Location">
                             </div>
                         </div>
                         <div class="search_option_button">
@@ -324,8 +325,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="ulockd-main-title">
-                    <h3 class="mt0">Hire Expert Freelancer</h3>
-                    <a class="text-thm float-right" href="#">Browse All Freelancers <i class="flaticon-right-arrow pl15"></i></a>
+                    <h3 class="mt0">Zatrudnij doświadczonego kierowcę</h3>
                 </div>
             </div>
         </div>
@@ -378,6 +378,84 @@
     </div>
 </section>
 
+<!-- Modal -->
+<div class="sign_up_modal modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="col-lg-12 col-xl-12">
+                <div class="candidate_resume_uploader">
+                    <p class="form_title">Załaduj CV</p>
+                    <form class="" method="post" action="{{ route('comment.store') }}" enctype="multipart/form-data">
+                        @csrf
+                        <small class="form-text text-muted">Lub dodaj nowy</small>
+                        <div class="form-group">
+                            <label for="">Comment</label>
+                            <textarea name="content" id="" cols="30" rows="10" class="form-control"></textarea>
+                        </div>
+                        <button style="width:100%" class="upload btn-sm">Dodaj</button>
+                    </form>
+                      <small class="form-text text-muted">Suitable files are .doc,.docx,.pdf.</small>
+                </div>
+            </div>
+      </div>
+    </div>
+</div>
+<!--modal-->
+<!-- Expert Freelancer List -->
+<section class="expert-freelancer bgc-fa">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ulockd-main-title">
+                    <h3 class="mt0">Co mówi nasz klient</h3>
+
+                    <button data-toggle="modal" data-target="#exampleModalCenter" class="text-thm float-right" href="#">Dodaj komentarz<i class="flaticon-right-arrow pl15"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ef_slider">
+                    @foreach ($comments as $comment)
+                        <div class="item" style="width:100%;">
+                            <div class="ef_post">
+                                <div class="ef_header">
+                                    <a class="ef_bookmark" href="#" title="BookMark Freelancer"><span class="flaticon-bookmark"></span></a>
+                                </div>
+                                <div class="thumb text-center">
+                                    <img class="img-fluid" src="{{ $comment->candidate->image }}" alt="1.jpg">
+                                </div>
+                                <div class="freelancer_review">
+                                    <div class="everage_rating">4.5</div>
+                                    <ul class="rating_list">
+                                        <li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+                                        <li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+                                        <li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+                                        <li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+                                        <li class="list-inline-item"><a href="#"><span class="fa fa-star-o"></span></a></li>
+                                    </ul>
+
+                                    <h4 class="title">{{$comment->candidate->first_name}} {{$comment->candidate->last_name}} </h4>
+                                </div>
+                                <div class="details">
+                                    <div class="job_locate">
+                                        <div class="form-group">
+
+                                            <textarea style="" name="" id="" cols="30" class="form-control" readonly >{{ $comment->content }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <x-footer></x-footer>
 
 
